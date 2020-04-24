@@ -27,6 +27,8 @@ services:
       - TZ=${TZ}
     depends_on:
       - postgres
+    volumes:
+      - ${SORMAS_PATH}/temp:/opt/sormas/temp
   postgres:
     restart: unless-stopped
     command: -c 'config_file=/etc/postgresql/postgresql.conf'
@@ -40,6 +42,7 @@ services:
       - TZ=${TZ}
     volumes:
       - ${SORMAS_PATH}/psqldata:/var/lib/postgresql/data
+      - ${SORMAS_PATH}/temp:/opt/sormas/temp
     ports:
       - "5432:5432"
   pg_dump:
